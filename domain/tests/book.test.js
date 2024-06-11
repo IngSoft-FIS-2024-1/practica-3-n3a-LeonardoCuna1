@@ -5,7 +5,8 @@ describe('Book', () => {
   let myBook;
 
   beforeEach(() => {
-    myBook = new Book('Cuentos de la Selva', 'Horacio Quiroga', 350);
+    myBook = new Book('Cuentos de la Selva', 'Horacio Quiroga', 350, 15000);
+   
   });
 
   it('return the correct title', () => {
@@ -21,26 +22,39 @@ describe('Book', () => {
   });
 
   it('check title is a string', () => {
-    expect(() => myBook = new Book(451, 1, 350)).toThrow();
+    expect(() => myBook = new Book(451, 1, 350, 15000)).toThrow();
   });
 
   it('check title is not empty', () => {
-    expect(() => myBook = new Book('', 'Horacio Quiroga', 350)).toThrow();
+    expect(() => myBook = new Book('', 'Horacio Quiroga', 350, 15000)).toThrow();
   });
 
   it('check author is a string', () => {
-    // TODO
+    expect(() => myBook = new Book('Title', 1, 350, 15000)).toThrow();
   });
 
   it('check page param is a number', () => {
-    // TODO
+    expect(() => myBook = new Book('Title', 'Author', 'h', 15000)).toThrow();
+  });
+
+  it('check words param is a number', () => {
+    expect(() => myBook = new Book('Title', 'Author', 350, 'h')).toThrow();
+  });
+  
+  it('check author is "anonimo" when the param is empty', () => {
+    myBook.setAuthor('');
+    expect(myBook.getAuthor()).toBe('Anónimo');
   });
 
   it('check pages not < 1', () => {
-    // TODO
+    expect(() => myBook = new Book('Title', 'Author', 0, 15000)).toThrow();
   });
+
   it('toString()', () => {
-    // TODO
+    expect(myBook.toString()).toBe('Título: Cuentos de la Selva Autor: Horacio Quiroga Páginas: 350 Palabras: 15000');
+  });
+  it('wordsPerPage()', () => {
+    expect(myBook.wordsPerPage()).toBe(43);
   });
 
 });
